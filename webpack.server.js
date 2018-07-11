@@ -1,11 +1,13 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals');
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.base')
 
-module.exports = {
+const config = {
     // Bundle for nodejs
     target: 'node',
     // root
-    entry: './src/index.jsx',
+    entry: './src/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'build')
@@ -13,23 +15,9 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
     },
-    // run babel
-    module: {
-        rules: [{
-            test: /\.jsx?$/,
-            loader: 'babel-loader',
-            exclude: /node_modules/,
-            options: {
-                presets: [
-                    'react',
-                    'stage-0', ['env', {
-                        targets: {
-                            browsers: ['last 2 versions']
-                        }
-                    }]
-                ]
-            }
-        }],
-    },
     externals: [nodeExternals()]
 }
+
+module.exports = merge(baseConfig, config)
+
+const a = 1

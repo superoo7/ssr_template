@@ -1,7 +1,8 @@
 const path = require('path')
-const nodeExternals = require('webpack-node-externals');
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.base')
 
-module.exports = {
+const config = {
     // root
     entry: './src/client/index.jsx',
     output: {
@@ -11,22 +12,6 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
     },
-    // run babel
-    module: {
-        rules: [{
-            test: /\.jsx?$/,
-            loader: 'babel-loader',
-            exclude: /node_modules/,
-            options: {
-                presets: [
-                    'react',
-                    'stage-0', ['env', {
-                        targets: {
-                            browsers: ['last 2 versions']
-                        }
-                    }]
-                ]
-            }
-        }],
-    }
 }
+
+module.exports = merge(baseConfig, config)

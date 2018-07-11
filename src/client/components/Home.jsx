@@ -2,8 +2,8 @@ import React from "react";
 
 const Home = () => (
   <div>
-    <div>HOME</div>
-    <button onClick={() => alert("test")}>test</button>
+    <div>HOME 2</div>
+    <button onClick={() => alert("test 2")}>test</button>
   </div>
 );
 
