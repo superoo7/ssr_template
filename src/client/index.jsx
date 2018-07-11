@@ -1,6 +1,15 @@
 // Client side
 import React from "react";
 import ReactDOM from "react-dom";
-import Home from "./components/Home";
+import { BrowserRouter } from "react-router-dom";
+import Routes from "./Routes";
 
-ReactDOM.hydrate(<Home />, document.querySelector("#app"));
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+  );
+};
+
+ReactDOM.hydrate(<App />, document.querySelector("#app"));
