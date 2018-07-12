@@ -15,9 +15,21 @@ app.use(express.static("public"));
 app.get("*", async (req, res) => {
   const store = createStore();
 
-  console.log(matchRoutes(Routes, req.path))
+  const promises = matchRoutes(Routes, req.path).map(({
+    route
+  }) => {
+    return route.loadData ? route.loadData(store) : null;
+  })
 
-  res.send(await renderer(req, store));
+  Promise.all(promises).then(async () => {
+    const temp = await renderer(req, store)
+    console.log(temp)
+    res.send(temp);
+  }).catch(() => {
+    console.log('err')
+    res.send(renderer(req, store))
+  })
+
 });
 
 app.listen(3000, () => {
