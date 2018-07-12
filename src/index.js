@@ -4,6 +4,8 @@ import express from "express";
 import {
   matchRoutes
 } from 'react-router-config'
+
+//
 import renderer from "./helpers/renderer";
 import createStore from "./helpers/createStore";
 import Routes from "./client/Routes";
@@ -22,12 +24,10 @@ app.get("*", async (req, res) => {
   })
 
   Promise.all(promises).then(async () => {
-    const temp = await renderer(req, store)
-    console.log(temp)
-    res.send(temp);
-  }).catch(() => {
-    console.log('err')
-    res.send(renderer(req, store))
+
+    res.send(await renderer(req, store));
+  }).catch(async () => {
+    res.send(await renderer(req, store))
   })
 
 });
